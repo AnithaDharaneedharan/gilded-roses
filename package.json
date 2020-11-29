@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node gilded_rose.js"
   },
   "author": "",
   "license": "ISC",
