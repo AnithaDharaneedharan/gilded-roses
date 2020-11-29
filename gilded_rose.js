@@ -23,39 +23,33 @@ class Shop {
         const isTenDaysOrLessToSell = item.sell_in <= 10;
         const isFiveDaysOrLessToSell = item.sell_in <= 5;
 
-        if (!isAgedBrie && !isBackstagePasses) {
+        if (!isSulfuras) {
+          item.sell_in = item.sell_in - 1;
+        }
+
+        if (!isAgedBrie && !isBackstagePasses && !isSulfuras) {
           if (isQualityGreaterThan0) {
-            if (!isSulfuras) {
-              item.quality = item.quality - 1;
-            }
+            item.quality = item.quality - 1;
           }
         } else {
           if (isQualityLesserThan50) {
             item.quality = item.quality + 1;
             if (isBackstagePasses) {
               if (isTenDaysOrLessToSell) {
-                if (item.quality < 50) {
-                  item.quality = item.quality + 1;
-                }
+                item.quality = item.quality + 1;
               }
               if (isFiveDaysOrLessToSell) {
-                if (isQualityLesserThan50) {
-                  item.quality = item.quality + 1;
-                }
+                item.quality = item.quality + 1;
               }
             }
           }
         }
-        if (!isSulfuras) {
-          item.sell_in = item.sell_in - 1;
-        }
+
         if (item.sell_in < 0) {
           if (!isAgedBrie) {
             if (!isBackstagePasses) {
-              if (isQualityGreaterThan0) {
-                if (!isSulfuras) {
-                  item.quality = item.quality - 1;
-                }
+              if (isQualityGreaterThan0 && !isSulfuras) {
+                item.quality = item.quality - 1;
               }
             } else {
               item.quality = item.quality - item.quality;
