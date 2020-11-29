@@ -1,4 +1,3 @@
-
 // Classes and their constructors
 class Item {
   constructor(name, sell_in, quality) {
@@ -37,7 +36,14 @@ let isConcertTicket = (item) => {
 };
 
 let isNormalItem = (item) =>
-  !isAgedCheese(item) && !isConcertTicket(item) && !isLegendary(item);
+  !isAgedCheese(item) &&
+  !isConcertTicket(item) &&
+  !isLegendary(item) &&
+  !isConjuredItem(item);
+
+let isConjuredItem = (item) => {
+  return item.name.toLowerCase().includes('conjured');
+};
 
 // Abstracting condition checks on quality and sellIn to functions
 
@@ -53,7 +59,11 @@ let increaseQuality = (item) => {
 
 let decreaseQuality = (item) => {
   if (item.quality > MIN_QUALITY) {
-    item.quality = item.quality - 1;
+    if (isConjuredItem(item)) {
+      item.quality = item.quality - 2;
+    } else {
+      item.quality = item.quality - 1;
+    }
   }
 };
 
@@ -90,7 +100,6 @@ const updateConcertTicketItems = (item) => {
   if (item.sell_in < 6) {
     increaseQuality(item);
   }
-
   if (isExpired(item)) {
     item.quality = MIN_QUALITY;
   }
@@ -100,6 +109,10 @@ const updateLegendaryItems = (item) => {
   return item;
 };
 
+const updateConjuredItems = (item) => {
+  decreaseSellin(item);
+  decreaseQuality(item);
+};
 // Invokes the respective update function based on the item
 
 let updateItemQuality = (item) => {
@@ -114,6 +127,9 @@ let updateItemQuality = (item) => {
   }
   if (isNormalItem(item)) {
     updateNormalItems(item);
+  }
+  if (isConjuredItem(item)) {
+    updateConjuredItems(item);
   }
 };
 

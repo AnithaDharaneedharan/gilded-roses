@@ -94,15 +94,20 @@ describe('Backstage passes to a TAFKAL80ETC concert', () => {
 
 describe('Sulfuras, Hand of Ragnaros', () => {
   it('should never sell this legendary item which has quality that never changes from 80', () => {
-    const shopItems = [
-      new Item('Sulfuras, Hand of Ragnaros', 0, 80),
-    ];
-    const expectedResult = [
-      new Item('Sulfuras, Hand of Ragnaros', 0, 80),
-    ];
+    const shopItems = [new Item('Sulfuras, Hand of Ragnaros', 0, 80)];
+    const expectedResult = [new Item('Sulfuras, Hand of Ragnaros', 0, 80)];
     const gildedRose = new Shop(shopItems);
     const items = gildedRose.update_quality();
     expect(items).toEqual(expectedResult);
   });
 });
 
+describe('Conjured items degrade in Quality twice as fast as normal items', () => {
+  it('Conjured items degrade in Quality twice as fast as normal items', () => {
+    const shopItems = [new Item('Conjured pen', 10, 10)];
+    const expectedResult = [new Item('Conjured pen', 9, 8)];
+    const gildedRose = new Shop(shopItems);
+    const items = gildedRose.update_quality();
+    expect(items).toEqual(expectedResult);
+  });
+});
