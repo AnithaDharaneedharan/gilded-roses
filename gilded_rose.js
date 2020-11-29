@@ -32,16 +32,14 @@ class Shop {
           if (isQualityGreaterThan0) {
             item.quality = item.quality - 1;
           }
-        } else {
-          if (isQualityLesserThan50) {
-            item.quality = item.quality + 1;
-            if (isBackstagePasses) {
-              if (isTenDaysOrLessToSell) {
-                item.quality = item.quality + 1;
-              }
-              if (isFiveDaysOrLessToSell) {
-                item.quality = item.quality + 1;
-              }
+        } else if (isQualityLesserThan50) {
+          item.quality = item.quality + 1;
+          if (isBackstagePasses) {
+            if (isTenDaysOrLessToSell) {
+              item.quality = item.quality + 1;
+            }
+            if (isFiveDaysOrLessToSell) {
+              item.quality = item.quality + 1;
             }
           }
         }
@@ -55,10 +53,8 @@ class Shop {
             } else {
               item.quality = item.quality - item.quality;
             }
-          } else {
-            if (isQualityLesserThan50) {
-              item.quality = item.quality + 1;
-            }
+          } else if (isQualityLesserThan50) {
+            item.quality = item.quality + 1;
           }
         }
       });
