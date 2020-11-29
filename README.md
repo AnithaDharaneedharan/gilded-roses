@@ -6,6 +6,12 @@ I picked Javascript language and the above repo has Jasemine test framework in t
 
 Since I am more familiar with JEST , I installed JEST in this code base.
 
+I wrote the test cases after understanding the problem and made sure everything passed.
+
+Once each and every test case passed, then I started refactoring the code .
+
+While refactoring the code , I followed SOLID principles , abstraction , reusability and maintainability. 
+
 # Instructions
 
 1. Clone the repo and install package dependencies `npm i`. Make sure latest version of node is installed in your system.
