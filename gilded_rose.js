@@ -15,61 +15,66 @@ class Item {
       return this.items;
     }
   }
+  
+  const MAX_QUALITY = 50;
+  const MIN_QUALITY = 0;
+  
   let isAgedCheese = (item) => {
-      return item.name == 'Aged Brie';
-  }
+    return item.name == 'Aged Brie';
+  };
   let isLegendary = (item) => {
-      return item.name == 'Sulfuras, Hand of Ragnaros';
-  }
+    return item.name == 'Sulfuras, Hand of Ragnaros';
+  };
   let isConcertTicket = (item) => {
-      return  item.name == 'Backstage passes to a TAFKAL80ETC concert';
-  }   
+    return item.name == 'Backstage passes to a TAFKAL80ETC concert';
+  };
+  
+  let increaseQuality = (item) => {
+    if (item.quality < MAX_QUALITY) {
+      item.quality = item.quality + 1;
+    }
+  };
+  
+  let decreaseQuality = (item) => {
+    if (item.quality > MIN_QUALITY) {
+      item.quality = item.quality - 1;
+    }
+  };
   
   let updateItemQuality = (item) => {
-    if (
-      !isAgedCheese(item) &&
-      !isConcertTicket(item)
-    ) {
-      if (item.quality > 0) {
-        if (!isLegendary(item)){
-          item.quality = item.quality - 1;
-        }
-      }
+    if (isLegendary(item)) {
+      return;
+    }
+  
+    if (!isAgedCheese(item) && !isConcertTicket(item)) {
+      decreaseQuality(item);
     } else {
-      if (item.quality < 50) {
+      if (item.quality < MAX_QUALITY) {
         item.quality = item.quality + 1;
         if (isConcertTicket(item)) {
           if (item.sell_in < 11) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
+            increaseQuality(item);
           }
           if (item.sell_in < 6) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
+            increaseQuality(item);
           }
         }
       }
     }
-    if (!isLegendary(item)) {
-      item.sell_in = item.sell_in - 1;
-    }
+  
+    item.sell_in = item.sell_in - 1;
+  
     if (item.sell_in < 0) {
       if (!isAgedCheese(item)) {
         if (!isConcertTicket(item)) {
           if (item.quality > 0) {
-            if (!isLegendary(item)) {
-              item.quality = item.quality - 1;
-            }
+            decreaseQuality(item);
           }
         } else {
           item.quality = item.quality - item.quality;
         }
       } else {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-        }
+        increaseQuality(item);
       }
     }
   };
