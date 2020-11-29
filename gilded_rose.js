@@ -22,12 +22,13 @@ class Shop {
         const isQualityLesserThan50 = item.quality < 50;
         const isTenDaysOrLessToSell = item.sell_in <= 10;
         const isFiveDaysOrLessToSell = item.sell_in <= 5;
+        const isNormalItem = !isAgedBrie && !isBackstagePasses && !isSulfuras;
 
         if (!isSulfuras) {
           item.sell_in = item.sell_in - 1;
         }
 
-        if (!isAgedBrie && !isBackstagePasses && !isSulfuras) {
+        if (isNormalItem) {
           if (isQualityGreaterThan0) {
             item.quality = item.quality - 1;
           }
