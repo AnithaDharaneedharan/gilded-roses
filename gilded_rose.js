@@ -13,7 +13,7 @@ class Shop {
     this.items = items;
   }
   update_quality() {
-    this.items.forEach(updateItemQuality);
+    this.items.map(updateItemQuality);
     return this.items;
   }
 }
